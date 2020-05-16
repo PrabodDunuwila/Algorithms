@@ -2,26 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import matplotlib.pyplot as plt
 import random
-
-number_of_cities = 4
-
-matrix = np.zeros((number_of_cities, number_of_cities))
-
-print(matrix)
-
-rows = matrix.shape[0]
-cols = matrix.shape[1]
-
-for x in range(0, rows):
-    for y in range(0, cols):
-        if x == y:
-            break
-        num = random.randint(1, 100)
-        matrix[x,y] = num
-        matrix[y,x] = num
-
-print(matrix)
+import time
 
 def permutation(lst): 
     if len(lst) == 0: 
@@ -45,34 +28,74 @@ def permutation(lst):
            l.append([m] + p)
     return l
 
-city_lst =  [*range(0, number_of_cities, 1)]
+def algorithm(e):
+    number_of_cities = e
+    
+    matrix = np.zeros((number_of_cities, number_of_cities))
+    
+    rows = matrix.shape[0]
+    cols = matrix.shape[1]
+    
+    for x in range(0, rows):
+        for y in range(0, cols):
+            if x == y:
+                break
+            num = random.randint(1, 100)
+            matrix[x,y] = num
+            matrix[y,x] = num
+            
+    city_lst =  [*range(0, number_of_cities, 1)]
+    
+    city_permutations = permutation(city_lst)
+    
+    #print(city_permutations)
+    
+    #print(len(city_permutations))
+    
+    min_dist = 100 * number_of_cities
+    optimal_perm = []
+    
+    if number_of_cities > 1:
+        for perm in city_permutations:
+            dist = 0
+            #print(perm)
+            for i in range(0, number_of_cities):
+                if i != number_of_cities-1:
+                    #print("{}-{}:{}".format(perm[i], perm[i+1], matrix[perm[i],perm[i+1]]))
+                    dist += matrix[perm[i],perm[i+1]]
+                else:
+                    #print("{}-{}:{}".format(perm[i], perm[0], matrix[perm[i],perm[0]]))
+                    dist += matrix[perm[i],perm[0]]
+            #print(dist)
+            if dist < min_dist:
+                min_dist = dist
+                optimal_perm = perm
+                
+        #print(min_dist)
+        optimal_perm.append(optimal_perm[0])
+        #print(optimal_perm)
+        return optimal_perm
+    else:
+        return 1
 
-city_permutations = permutation(city_lst)
+test_cases = 10
 
-print(city_permutations)
+x = [*range(0, test_cases, 1)]
+exec_time = []
 
-print(len(city_permutations))
+if __name__ == "__main__":
+    for i in range(0, test_cases):
+        start = time.time()
+        algorithm(i)
+        end = time.time()
+        exec_time.append(end-start)
 
-min_dist = 100 * number_of_cities
-optimal_perm = []
+plt.plot(x, exec_time)
 
-for perm in city_permutations:
-    dist = 0
-    print(perm)
-    for i in range(0, number_of_cities):
-        if i != number_of_cities-1:
-            print("{}-{}:{}".format(perm[i], perm[i+1], matrix[perm[i],perm[i+1]]))
-            dist += matrix[perm[i],perm[i+1]]
-        else:
-            print("{}-{}:{}".format(perm[i], perm[0], matrix[perm[i],perm[0]]))
-            dist += matrix[perm[i],perm[0]]
-    print(dist)
-    if dist < min_dist:
-        min_dist = dist
-        optimal_perm = perm
-        
-print(min_dist)
-optimal_perm.append(optimal_perm[0])
-print(optimal_perm)
-        
+plt.xlabel('number of cities')
+plt.ylabel('execution time(s)')
+
+plt.title('TSP naive algorithm')
+
+plt.show()
         
