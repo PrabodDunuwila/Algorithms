@@ -1,4 +1,4 @@
-# TSP
+# Travelling Salesman Problem : TSP
 
 <pre>
 Implementations for Travelling Salesman Problem using,

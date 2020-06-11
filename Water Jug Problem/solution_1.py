@@ -4,6 +4,7 @@ def fill_v1(v1, v2, v1_max):
         v1 += 1
     return v1, v2
 
+
 def fill_jug_algo(v1_max, v2_max, value):
     v1, v1_max = 0, v1_max
     v2, v2_max = 0, v2_max
@@ -19,7 +20,8 @@ def fill_jug_algo(v1_max, v2_max, value):
                 print("    {}   |   {}".format(v1, v2))
             v1, v2 = fill_v1(v1, v2, v1_max)
             print("    {}   |   {}".format(v1, v2))
-    
+
+
 if __name__ == "__main__":
-    fill_jug_algo(v1_max = 3, v2_max = 4, value = 2)
-    fill_jug_algo(v1_max = 4, v2_max = 3, value = 2)
+    fill_jug_algo(v1_max=3, v2_max=4, value=2)
+    fill_jug_algo(v1_max=4, v2_max=3, value=2)
