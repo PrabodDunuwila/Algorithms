@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 20 19:47:24 2020
-
-@author: dunu008
-"""
-
 def fill_v1(v1, v2, v1_max):
     while v1 < v1_max:
         if v2 == 0:
