@@ -3,6 +3,9 @@
 Implementations for Travelling Salesman Problem using,
 	1. mlrose library
 	2. implement algorithm from scratch using naive method.
+	3. using depth first search
+	4. using breadth first search
+	5. using uniform cost search
 
 Implement algorithm from scratch using naive method
 
